@@ -1,16 +1,23 @@
 .header {
   overflow: hidden;
+  background-color: blue;
 }
+
 .text {
   white-space: nowrap;
   animation: text 10s infinite linear;
 }
+
 @keyframes text {
   0% {
     transform: translate(0, 0);
   }
 
   100% {
-    transform: translate(-160%, 0);
+    transform: translate(-100%, 0);
   }
+}
+
+.color {
+  background-color: white;
 }

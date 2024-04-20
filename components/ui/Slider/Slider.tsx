@@ -8,7 +8,7 @@ import { imagesSlider } from '@/components/constants/imagesSlider';
 
 export const Slider = () => {
   return (
-    <Carousel height={600} slideSize="100%" loop align="center" mah={800} mb={60}>
+    <Carousel height={600} slideSize="100%" loop align="center" mah={800} mb={60} maw={1500} m='auto'>
       {imagesSlider.map((i) => {
         return (
           <Carousel.Slide>

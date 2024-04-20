@@ -11,9 +11,11 @@ type CardProps = {
 
 export const CardCategory: FC<CardProps> = ({ card }) => {
   return (
-      <Box display='flex' className={styles.card} w={172} mr={20}>
-        <Image src={card.image} alt={card.alt} width={172} height={110}/>
-        <Text fz={10} mt={14}>{card.alt}</Text>
-      </Box>
+    <Box display="flex" className={styles.card} w={172} mr={20}>
+      <Image src={card.image} alt={card.alt} width={172} height={110} />
+      <Text fz={20} mt={14}>
+        {card.alt.slice(0, 10)}
+      </Text>
+    </Box>
   );
 };

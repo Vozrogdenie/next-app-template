@@ -1,15 +1,15 @@
-.card{
-    border:1px solid black;
+.card {
+  flex-direction: column;
+  margin-right: 20px;
 }
-.text{
-    justify-content: space-between;
-    align-items: center;
+.text {
+  justify-content: space-between;
+  align-items: center;
 }
-.review{
-    align-items: center;
+.review {
+  align-items: center;
 }
 
-.image{
-    padding: 0 20px;
-    margin: auto;
+.image {
+  margin: auto;
 }

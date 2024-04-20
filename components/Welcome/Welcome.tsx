@@ -12,7 +12,6 @@ import { BestSellers } from '../ui/BestSellers/BestSellers';
 export function Welcome() {
   return (
     <>
-      <RunString />
       <Header />
       <Slider />
       <Category/>
