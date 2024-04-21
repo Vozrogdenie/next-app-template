@@ -1,20 +1,3 @@
-.card {
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
-  & > *:nth-child(4) {
-    margin-right: 0 !important;
-  }
-  & > *:nth-child(7) {
-    margin-right: 0 !important;
-  }
-}
-
-.sellers {
-  max-width: 1500px;
-}
-
 .text {
   padding: 10px 16px 10px 33px;
   border-radius: 30px;
@@ -31,6 +14,27 @@
   align-items: center;
   justify-content: center;
 }
+
+.content {
+  justify-content: space-between;
+}
+
 .title {
   align-items: flex-end;
+}
+
+.textSecret {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.slides {
+  border-top: 1px solid black;
+  padding: 50px 0;
+
+  :global(.mantine-Carousel-controls) {
+    top: calc(50% - (26px + 53px) / 2);
+  }
 }

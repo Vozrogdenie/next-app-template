@@ -1,0 +1,31 @@
+.arrow {
+  background-color: rgba(204, 225, 245, 1);
+  padding: 7px;
+  border-radius: 30px;
+  display: flex;
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  border-radius: 50px !important;
+}
+
+.content {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feedback {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 50px 0;
+
+ input {
+    border-radius: 50px;
+    height: 60px;
+  }
+
+}

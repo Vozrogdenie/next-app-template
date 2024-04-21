@@ -1,0 +1,9 @@
+.text {
+    text-align: center;
+    justify-content: center;
+    border-top: 1px solid black;
+
+    :global(.mantine-Carousel-container) {
+        align-items: center;
+    }
+}

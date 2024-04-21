@@ -1,0 +1,12 @@
+.box {
+  border-radius: 20px;
+  border: 1px solid black;
+  width: inherit;
+  padding: 14px;
+}
+.instagramBlock {
+
+  :global(.mantine-Carousel-controls) {
+    top: calc(50% - (26px + 71px) / 2);
+  }
+}
