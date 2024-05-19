@@ -1,18 +1,18 @@
 export const textForFooter = [
   {
     head: 'Shop',
-    name: ['Build Ur Own Sample Tin', 'Fragrance', 'Dedtergent', 'Air Fresheners', 'Balm Stick'],
+    name: ['<p>Build Ur Own Sample Tin</p>', '<p>Fragrance</p>', '<p>Dedtergent</p>', '<p>Air Fresheners</p>', '<p>Balm Stick</p>']
   },
   {
     head: 'Help',
-    name: ['About', 'Try Before You Buy', 'Layering 101', 'Press', 'Stockists'],
+    name: ['<p>About</p>', '<p>Try Before You Buy</p>', '<p>Layering 101</p>', '<p>Press</p>', '<p>Stockists</p>']
   },
   {
     head: 'Learn',
-    name: ['About', 'Try Before You Buy', 'Layering 101', 'Press', 'Stockists'],
+    name: ['<p>About</p>', '<p>Try Before You Buy</p>', '<p>Layering 101</p>', '<p>Press</p>', '<p>Stockists</p>']
   },
   {
     head: 'Connect',
-    name: ['Instagramn', 'Facebook', 'TikTok', 'Earn DedCoins $', 'DedCool Careers'],
+    name: ['<p>Instagramn</p>', '<p>Facebook</p>', '<p>TikTok</p>', '<p>Earn DedCoins $</p>', '<p>DedCool Careers</p>']
   },
 ];

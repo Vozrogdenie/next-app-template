@@ -12,7 +12,7 @@ export const Slider = () => {
       {imagesSlider.map((i) => {
         return (
           <Carousel.Slide>
-            <Image src={i.image} alt={i.alt} fill className={styles.image}/>
+            <Image src={i.image} alt={i.alt} fill className={styles.image} objectFit='cover'/>
           </Carousel.Slide>
         );
       })}

@@ -1,7 +1,50 @@
-.head{
-    display: flex;
+.head {
+  display: flex;
+  //   @media (max-width: 1024px) {
+  //   }
+  flex-wrap: wrap;
 }
 
-.image{
-    align-items: flex-end;
+.image {
+  align-items: flex-end;
+
+  @media (max-width: 1024px) {
+    width: 101px;
+    height: 80px;
+    margin-top: 60px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+.instagramBlock {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.text {
+  margin-right: 60px;
+
+  @media (max-width: 1024px) {
+    margin-right: 80px;
+  }
+
+  @media (max-width: 1024px) {
+    &:last-child {
+      margin-top: 46px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &:nth-child(3) {
+      margin-top: 46px;
+    }
+  }
+}
+
+.headText {
+  margin-bottom: 45px;
+  @media (max-width: 1024px) {
+    margin-bottom: 15px;
+  }
 }

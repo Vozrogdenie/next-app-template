@@ -1,4 +1,4 @@
-import { Title, Text, Anchor, Box } from '@mantine/core';
+import { Title, Text, Anchor, Box, NavLink } from '@mantine/core';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import cn from 'classnames';
@@ -6,27 +6,49 @@ import { HeaderMenu } from './components/HeaderMenu/HeaderMenu';
 import { headerMenu, headerMenuLeft } from '@/components/constants/headerMenu';
 import { RunString } from '../RunString/RunString';
 import { textForRunString } from '@/components/constants/textForRunString';
-
+import { useDisclosure } from '@mantine/hooks';
+import { Burger } from '@mantine/core';
 export function Header() {
+  const [opened, { toggle }] = useDisclosure();
+
   return (
     <>
-      {textForRunString
-        .map((i) => {
-          return <RunString runString={i.name} mode={false} />;
-        })
-        .slice(0, 1)}
-      <Box bg="grey" w="100%" display="flex" className={cn(styles.header, 'padding')} maw={1500} m='auto'>
+      <Box bg="rgba(240, 240, 240, 1)" w="100%" className={cn(styles.header, 'padding')} maw={1500} m="auto">
         <Box display="flex">
-          {headerMenu.map((i) => {
-            return <HeaderMenu menu={i.name} />;
-          })}
+          {headerMenu.map((i) => (
+            <HeaderMenu menu={i.name} />
+          ))}
         </Box>
         <Image src="/logo.png" width={89} height={70} alt="logo" />
         <Box display="flex">
-          {headerMenuLeft.map((i) => {
-            return <HeaderMenu menu={i.name} />;
-          })}
+          {headerMenuLeft.map((i) => (
+            <HeaderMenu menu={i.name} />
+          ))}
         </Box>
+      </Box>
+      <Box
+        bg="rgba(240, 240, 240, 1)"
+        w="100%"
+        className={cn(styles.mobile, 'padding')}
+        maw={1500}
+        m="auto"
+      >
+        <Box maw={100}>
+          <NavLink
+            href="#required-for-focus"
+            label="Menu"
+            w={100}
+            childrenOffset={28}
+            className={styles.menu}
+            h={30}
+          >
+            <NavLink label="Shop" href="#required-for-focus" />
+            <NavLink label="Bundles" href="#required-for-focus" />
+            <NavLink label="Quiz" href="#required-for-focus" />
+          </NavLink>
+        </Box>
+        <Image src="/logo.png" width={89} height={70} alt="logo" />
+            <HeaderMenu menu={'Cart'} />
       </Box>
     </>
   );

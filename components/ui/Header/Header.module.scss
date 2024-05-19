@@ -1,4 +1,46 @@
-.header{
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.text {
+  white-space: nowrap;
+  animation: text 10s infinite linear;
+}
+
+@keyframes text {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+.mobile {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    height: 90px;
     align-items: center;
     justify-content: space-between;
+  }
+
+  :global(.mantine-NavLink-collapse, .mantine-NavLink-children) {
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(240, 240, 240, 1);
+    padding: 0;
+    width: 100px;
+  }
+  :global(.mantine-NavLink-section) {
+    display: none;
+  }
 }

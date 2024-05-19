@@ -8,3 +8,30 @@
     font-size: rem(50px);
   }
 }
+
+.main{
+  padding: 0 40px;
+
+  @media (max-width: 1024px) {
+    padding: 0 20px;
+  }
+}
+
+.text {
+  white-space: nowrap;
+  animation: text 10s infinite linear;
+}
+
+@keyframes text {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+.color {
+  background-color: white;
+}
