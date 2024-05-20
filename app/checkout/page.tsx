@@ -1,10 +1,9 @@
-import { Checkout } from "@/components/Checkout/Checkout";
-import { Welcome } from "@/components/Welcome/Welcome";
+import { Checkout } from '@/components/pages/Checkout/Checkout';
 
 export default function HomePage() {
   return (
     <>
-      <Checkout/>
+      <Checkout />
     </>
   );
 }

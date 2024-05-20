@@ -1,9 +1,9 @@
 'use client';
 
 import { Box, Text } from '@mantine/core';
-import { textForRunString } from '../constants/textForRunString';
-import { Footer } from '../ui/Footer/Footer';
-import { Header } from '../ui/Header/Header';
+import { textForRunString } from '../../constants/textForRunString';
+import { Footer } from '../../ui/Footer/Footer';
+import { Header } from '../../ui/Header/Header';
 import styles from './Checkout.module.scss';
 
 export function Checkout() {

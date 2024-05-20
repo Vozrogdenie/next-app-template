@@ -1,4 +1,4 @@
-import { Welcome } from '../components/Welcome/Welcome';
+import { Welcome } from '../components/pages/Welcome/Welcome';
 
 export default function HomePage() {
   return (
