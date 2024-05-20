@@ -1,7 +1,5 @@
 .head {
   display: flex;
-  //   @media (max-width: 1024px) {
-  //   }
   flex-wrap: wrap;
 }
 
@@ -44,6 +42,7 @@
 
 .headText {
   margin-bottom: 45px;
+
   @media (max-width: 1024px) {
     margin-bottom: 15px;
   }

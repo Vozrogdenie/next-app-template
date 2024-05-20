@@ -1,10 +1,7 @@
 import { Title, Text, Anchor, Box, Input, Grid } from '@mantine/core';
 import styles from './Footer.module.scss';
 import Image from 'next/image';
-import cn from 'classnames';
-import { Carousel } from '@mantine/carousel';
 import '@mantine/carousel/styles.css';
-import { imagesSlider } from '@/components/constants/imagesSlider';
 import { textForFooter } from '@/components/constants/footer';
 
 export const Footer = () => {

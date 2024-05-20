@@ -1,10 +1,7 @@
-import { Title, Text, Anchor, Box } from '@mantine/core';
+import { Text } from '@mantine/core';
 import styles from './SliderText.module.scss';
-import Image from 'next/image';
-import cn from 'classnames';
 import { Carousel } from '@mantine/carousel';
 import '@mantine/carousel/styles.css';
-import { imagesSlider } from '@/components/constants/imagesSlider';
 import { textForSliderText } from '@/components/constants/textForSlider';
 
 export const SliderText = () => {
@@ -23,7 +20,7 @@ export const SliderText = () => {
       {textForSliderText.map((i) => {
         return (
           <Carousel.Slide>
-            <Text fz={40} >{i.name}</Text>
+            <Text fz={40}>{i.name}</Text>
           </Carousel.Slide>
         );
       })}

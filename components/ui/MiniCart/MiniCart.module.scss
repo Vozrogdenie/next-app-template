@@ -1,0 +1,65 @@
+.drawer {
+    :global(.mantine-Drawer-header) {
+        padding: 0;
+        border-bottom: 1px solid #f4f4f4;
+        margin-bottom: 20px;
+    }
+
+    :global(section) {
+        padding: 32px 32px 0;
+        font-size: 16px;
+        border-bottom: 1px solid #f4f4f4;
+        max-width: 1440px;
+    }
+
+    :global(h2) {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    :global(svg:first) {
+        width: 20px !important;
+        height: 20px !important;
+        color: black;
+    }
+
+    :global(.mantine-Drawer-body) {
+        padding: 0;
+    }
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    display: contents;
+    margin-bottom: 6px;
+
+    span {
+        display: contents;
+    }
+}
+
+.price {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.box {
+    border-bottom: 1px solid #F4F4F4;
+    padding-bottom: 20px;
+}
+
+.checkout {
+    padding: 20px 0;
+    border-bottom: 1px solid #F4F4F4;
+    border-top: 1px solid #F4F4F4;
+}

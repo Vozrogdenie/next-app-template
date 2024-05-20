@@ -1,19 +1,20 @@
-import { Title, Text, Anchor, Box, NavLink } from '@mantine/core';
+import { Box, NavLink } from '@mantine/core';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import cn from 'classnames';
 import { HeaderMenu } from './components/HeaderMenu/HeaderMenu';
 import { headerMenu, headerMenuLeft } from '@/components/constants/headerMenu';
-import { RunString } from '../RunString/RunString';
-import { textForRunString } from '@/components/constants/textForRunString';
-import { useDisclosure } from '@mantine/hooks';
-import { Burger } from '@mantine/core';
-export function Header() {
-  const [opened, { toggle }] = useDisclosure();
 
+export function Header() {
   return (
     <>
-      <Box bg="rgba(240, 240, 240, 1)" w="100%" className={cn(styles.header, 'padding')} maw={1500} m="auto">
+      <Box
+        bg="rgba(240, 240, 240, 1)"
+        w="100%"
+        className={cn(styles.header, 'padding')}
+        maw={1500}
+        m="auto"
+      >
         <Box display="flex">
           {headerMenu.map((i) => (
             <HeaderMenu menu={i.name} />
@@ -48,7 +49,7 @@ export function Header() {
           </NavLink>
         </Box>
         <Image src="/logo.png" width={89} height={70} alt="logo" />
-            <HeaderMenu menu={'Cart'} />
+        <HeaderMenu menu={'Cart'} />
       </Box>
     </>
   );

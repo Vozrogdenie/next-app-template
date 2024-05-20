@@ -1,7 +1,6 @@
 'use client';
-import { Title, Text, Anchor, Box } from '@mantine/core';
+import { Text, Box } from '@mantine/core';
 import styles from './Welcome.module.css';
-import { RunString } from '../ui/RunString/RunString';
 import { Header } from '../ui/Header/Header';
 import '../assets/index.scss';
 import { Slider } from '../ui/Slider/Slider';
@@ -18,17 +17,17 @@ export function Welcome() {
   return (
     <>
       <Box className={styles.main}>
-      {textForRunString
-        .map((i) => {
-          return (
-            <Box w="100%" display="flex" bg="blue">
-              <Text fz={10} mr={100} w="100%" display="inline" className={styles.text}>
-                {i.name}
-              </Text>
-            </Box>
-          );
-        })
-        .slice(0, 1)}
+        {textForRunString
+          .map((i) => {
+            return (
+              <Box w="100%" display="flex" bg="blue">
+                <Text fz={10} mr={100} w="100%" display="inline" className={styles.text}>
+                  {i.name}
+                </Text>
+              </Box>
+            );
+          })
+          .slice(0, 1)}
         <Header />
         <Slider />
         <Category />
