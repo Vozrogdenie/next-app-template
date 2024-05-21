@@ -1,8 +1,8 @@
 'use client';
 import { Text, Box } from '@mantine/core';
-import styles from './Welcome.module.css';
+import styles from './Welcome.module.scss';
 import { Header } from '../../ui/Header/Header';
-import '../assets/index.scss';
+import '../../assets/index.scss';
 import { Slider } from '../../ui/Slider/Slider';
 import { Category } from '../../ui/Category/Category';
 import { BestSellers } from '../../ui/BestSellers/BestSellers';
