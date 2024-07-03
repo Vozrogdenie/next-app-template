@@ -1,37 +1,72 @@
-import { Title, Text, Anchor, Box, Button } from '@mantine/core';
-import styles from './CardBestSellers.module.scss';
+import { Text, Box, Button } from '@mantine/core';
 import Image from 'next/image';
-import cn from 'classnames';
-import { FC } from 'react';
-import { IImages } from '@/components/type/heager/header';
+import { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from './CardBestSellers.module.scss';
+import { selectProducts } from '@/store/slice/products/product';
+import { addToCard, selectCart } from '@/store/slice/cart/cartSlice';
+import { IProducts } from '@/store/types/product/produtc';
+import PriceButton from '../../components/PriceButton/PriceButton';
 
-type CardProps = {
-  card: IImages;
-};
+export const CardBestSellers: FC = () => {
+  const cards = useSelector(selectProducts);
+  const dispatch = useDispatch();
+  const cart = useSelector(selectCart);
 
-export const CardBestSellers: FC<CardProps> = ({ card }) => {
+  const isProductInCart = (productId: number) => cart.some((item) => item.id === productId);
+  const getProductQuantity = (productId: number) => {
+    const product = cart.find((item) => item.id === productId);
+    return product ? product.quantity : 0;
+  };
+
+  const addProduct = (product: IProducts) => {
+    dispatch(addToCard(product));
+  };
+
   return (
-    <Box className={styles.card} display="flex" w={360} h={550} bg="rgba(240, 240, 240, 1)" p={20}>
-      <Box mb={20}>
-        <Box display="flex" className={styles.text}>
-          <Text fz={22} mb={5}>
-            {card.alt.slice(0, 15)}
-          </Text>
-          <Text fz={14}>$90</Text>
-        </Box>
+    <>
+      {cards?.products.slice(0, 8).map((i) => (
+        <Box
+          key={i.id}
+          className={styles.card}
+          display="flex"
+          w={360}
+          h={550}
+          bg="rgba(240, 240, 240, 1)"
+          p={20}
+        >
+          <Box mb={20}>
+            <Box display="flex"  className={styles.text}>
+              <Text fz={22} mb={5}>
+                {i.title.slice(0, 15)}
+              </Text>
+              <Text fz={14}>{i.price}$</Text>
+            </Box>
+            <Box display="flex" className={styles.review}>
+              <Text mr={8}>{i.rating.rate}</Text>
+              <Image src="/stars.png" width={75} height={13} alt="stars" />
+              <Text fz={14} ml={8}>
+                {i.rating.count} Reviews
+              </Text>
+            </Box>
+          </Box>
+          <Image src={i.image} alt={i.title} width={320} height={372} className={styles.image} />
 
-        <Box display="flex" className={styles.review}>
-          <Image src="/stars.png" width={75} height={13} alt="stars"></Image>
-          <Text fz={14} ml={8}>
-            263 Reviews
-          </Text>
+          {isProductInCart(i.id) ? (
+            <PriceButton product={i} count={getProductQuantity(i.id)} />
+          ) : (
+            <Button
+              bg="rgba(255, 107, 24, 1)"
+              w="100%"
+              m="auto"
+              mt={20}
+              onClick={() => addProduct(i)}
+            >
+              ADD TO CART
+            </Button>
+          )}
         </Box>
-      </Box>
-      <Image src={card.image} alt={card.alt} width={320} height={372} className={styles.image} />
-
-      <Button bg="rgba(255, 107, 24, 1)" w="100%" m="auto" mt={20}>
-        ADD TO CARD
-      </Button>
-    </Box>
+      ))}
+    </>
   );
 };

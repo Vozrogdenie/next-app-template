@@ -1,7 +1,7 @@
 import { Box, NavLink } from '@mantine/core';
-import styles from './Header.module.scss';
 import Image from 'next/image';
 import cn from 'classnames';
+import styles from './Header.module.scss';
 import { HeaderMenu } from './components/HeaderMenu/HeaderMenu';
 import { headerMenu, headerMenuLeft } from '@/components/constants/headerMenu';
 
@@ -49,7 +49,7 @@ export function Header() {
           </NavLink>
         </Box>
         <Image src="/logo.png" width={89} height={70} alt="logo" />
-        <HeaderMenu menu={'Cart'} />
+        <HeaderMenu menu="Cart" />
       </Box>
     </>
   );

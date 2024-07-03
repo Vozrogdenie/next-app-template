@@ -16,6 +16,12 @@ export default withBundleAnalyzer({
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'fakestoreapi.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'images.unsplash.com',
         port: '',
         pathname: '/**',

@@ -1,16 +1,21 @@
 import { Button, Box, Flex, Text, Input, Checkbox, Switch } from '@mantine/core';
 import styles from './FormPay.module.scss';
-import { useState } from 'react';
-import { checkoutHeader } from '@/components/constants/checkoutHeader';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { selectCart } from '@/store/slice/cart/cartSlice';
 
-const FormPay = () => {
+const FormPay = ({ onSubmit }) => {
+  const cart = useSelector(selectCart);
+  const totalPrice = cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const handlePayment = () => {
+    onSubmit();
+  };
   return (
     <Box className={styles.formPay} w={420} p={24}>
       <Box>
         <Flex justify="space-between" pb={16}>
           <Text c={'#9D9EA2'}>Subtotal</Text>
-          <Text>$497.00</Text>
+          <Text>${totalPrice}</Text>
         </Flex>
         <Flex justify="space-between" pb={20}>
           <Text c={'#9D9EA2'}>Discount</Text>
@@ -45,8 +50,16 @@ const FormPay = () => {
           </Flex>
           <Switch />
         </Flex>
-        <Button bg={'#C8C9CB'} c={'white'} radius={50} w={'100%'} h={56} mb={20}>
-          Place Order | $547
+        <Button
+          bg={'green'}
+          c={'white'}
+          radius={50}
+          w={'100%'}
+          h={56}
+          mb={20}
+          onClick={handlePayment}
+        >
+          Place Order | ${totalPrice}
         </Button>
       </Box>
       <Box>
