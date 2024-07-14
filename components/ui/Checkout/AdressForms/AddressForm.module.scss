@@ -1,21 +1,26 @@
 .shopping {
-    padding: 24px 24px 80px;
+  padding: 24px 24px 80px;
+
   input,
   select {
     border-radius: 8px;
     border: 1px solid #f4f4f4;
     height: 48px !important;
   }
+
   label {
     color: #46494f;
     height: 48px !important;
   }
-  max-width: 1440px;
+
+  max-width: 1440px !important;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
 }
 
-.form{
-   padding: 32px 0; 
-   border-top: 1px solid #c2c5c9;
-   border-bottom: 1px solid #c2c5c9;
-
+.form {
+  padding: 32px 0;
+  border-top: 1px solid #c2c5c9;
+  border-bottom: 1px solid #c2c5c9;
 }

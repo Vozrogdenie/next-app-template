@@ -1,9 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-
-import Cookies from 'js-cookie';
 import { RootState } from '@/store/store';
 
-const safeParseJSON = (jsonString: string | undefined) => {
+const safeParseJSON = (jsonString: string | null) => {
   try {
     return jsonString ? JSON.parse(jsonString) : [];
   } catch (error) {
@@ -11,7 +9,7 @@ const safeParseJSON = (jsonString: string | undefined) => {
   }
 };
 
-const initialState = typeof window !== 'undefined' ? safeParseJSON(Cookies.get('cart')) : [];
+const initialState = typeof window !== 'undefined' ? safeParseJSON(localStorage.getItem('cart')) : [];
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -34,7 +32,7 @@ const cartSlice = createSlice({
     ) => {
       const newItem = action.payload;
 
-      const existingItem = state.find((item) => item.id === newItem.id);
+      const existingItem = state.find((item: { id: number; }) => item.id === newItem.id);
 
       if (existingItem) {
         existingItem.quantity += 1;
@@ -42,29 +40,29 @@ const cartSlice = createSlice({
         state.push({ ...newItem, quantity: 1 });
       }
 
-      Cookies.set('cart', JSON.stringify(state));
+      localStorage.setItem('cart', JSON.stringify(state));
     },
 
     removeFromCart: (state, action) => {
-      const updatedState = state.filter((item) => item.id !== action.payload);
+      const updatedState = state.filter((item: { id: any; }) => item.id !== action.payload);
 
-      Cookies.set('cart', JSON.stringify(updatedState));
+      localStorage.setItem('cart', JSON.stringify(updatedState));
 
       return updatedState;
     },
 
     addQuantity: (state, action: PayloadAction<number>) => {
-      const item = state.find((item) => item.id === action.payload);
+      const item = state.find((item: { id: number; }) => item.id === action.payload);
 
       if (item) {
         item.quantity += 1;
 
-        Cookies.set('cart', JSON.stringify(state));
+        localStorage.setItem('cart', JSON.stringify(state));
       }
     },
 
     remQuantity: (state, action: PayloadAction<number>) => {
-      const itemIndex = state.findIndex((item) => item.id === action.payload);
+      const itemIndex = state.findIndex((item: { id: number; }) => item.id === action.payload);
       if (itemIndex !== -1) {
         const item = state[itemIndex];
 
@@ -74,7 +72,7 @@ const cartSlice = createSlice({
           state.splice(itemIndex, 1);
         }
 
-        Cookies.set('cart', JSON.stringify(state));
+        localStorage.setItem('cart', JSON.stringify(state));
       }
     },
   },
