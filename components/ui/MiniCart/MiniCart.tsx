@@ -1,30 +1,40 @@
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import { Drawer, Button, Text, Box, Flex } from '@mantine/core';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PriceButton from '../components/PriceButton/PriceButton';
 import styles from './MiniCart.module.scss';
 import { selectCart } from '@/store/slice/cart/cartSlice';
+import { selectModalsCart, setCart } from '@/store/slice/modals/modals';
 
-const Minicart = ({ openn }) => {
-  const [opened, close] = useDisclosure(openn);
+const Minicart = () => {
   const isMobile = useMediaQuery('(max-width: 767px)');
   const router = useRouter();
   const cart = useSelector(selectCart);
-  const totalPrice = cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const totalPrice = cart.reduce(
+    (acc: number, item: { quantity: number; price: number }) => acc + item.quantity * item.price,
+    0
+  );
+  const open = useSelector(selectModalsCart);
+  const dispatch = useDispatch();
+
+  const handleCart = () => {
+    dispatch(setCart(false));
+    router.push('/checkout');
+  };
 
   return (
     <>
       <Drawer
         size={isMobile ? '90%' : '50%'}
         className={styles.drawer}
-        opened={opened}
-        onClose={close.close}
+        opened={open}
+        onClose={() => dispatch(setCart(!open))}
         title="Your cart"
         position={isMobile ? 'bottom' : 'right'}
       >
-        {cart.map((i) => (
+        {cart.map((i: { image: any; title: string; quantity: number; price: number }) => (
           <Box className={styles.box} mb={20}>
             <Box display="flex">
               <Image width={56} height={56} src={i.image} alt={i.title} />
@@ -51,12 +61,7 @@ const Minicart = ({ openn }) => {
           <Text c="red">${totalPrice}</Text>
         </Flex>
         <Box className={styles.box} mb={20}>
-          <Button
-            bg="green"
-            radius={50}
-            onClick={() => router.push('/checkout')}
-            title="Go to checkout"
-          >
+          <Button bg="green" radius={50} onClick={handleCart} title="Go to checkout">
             Checkout
           </Button>
         </Box>

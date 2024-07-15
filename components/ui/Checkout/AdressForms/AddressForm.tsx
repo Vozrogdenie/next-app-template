@@ -1,63 +1,15 @@
-import { Box, Flex, Text, TextInput, NativeSelect, Textarea, Button } from '@mantine/core';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import styles from './AddressForm.module.scss';
+import React from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Box, Flex, Text, NativeSelect, Textarea, TextInput } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import FormPay from '../FormPay/FormPay';
 
 const AddressForm = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    city: '',
-    country: '',
-    town: '',
-    postcode: '',
-    phone: '',
-    email: '',
-    stockOption: '',
-    aboutUs: '',
-  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  useEffect(() => {
-    const storedData = Object.keys(formData).reduce((acc, key) => {
-      const storedValue = localStorage.getItem(key);
-      if (storedValue) {
-        acc[key] = storedValue;
-      }
-      return acc;
-    }, {});
-
-    setFormData((prevData) => ({
-      ...prevData,
-      ...storedData,
-    }));
-  }, []);
-
-  const handleChange = (name, value) => {
-    if (name === 'phone') {
-      value = value.replace(/\D/g, '');
-    }
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    localStorage.setItem(name, value);
-  };
-
-  const onSubmit = () => {
-    Object.keys(formData).forEach((key) => localStorage.removeItem(key));
-
-    setFormData({
+  const formik = useFormik({
+    initialValues: {
       firstName: '',
       lastName: '',
       city: '',
@@ -68,146 +20,183 @@ const AddressForm = () => {
       email: '',
       stockOption: '',
       aboutUs: '',
-    });
-    router.push('/');
-  };
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().required('First Name is required'),
+      lastName: Yup.string().required('Last Name is required'),
+      city: Yup.string().required('City is required'),
+      country: Yup.string().required('Country / Region is required'),
+      town: Yup.string().required('Town / City is required'),
+      postcode: Yup.string()
+        .matches(/^[0-9]+$/, 'Postcode / ZIP must be numeric')
+        .required('Postcode / ZIP is required'),
+      phone: Yup.string()
+        .required('Phone is required')
+        .matches(
+          /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/,
+          'Phone must be in the format +7 (000) 000-00-00'
+        ),
+      email: Yup.string().email('Invalid email address').required('Email is required'),
+      stockOption: Yup.string().required('Stock Option is required'),
+      aboutUs: Yup.string(),
+    }),
+    onSubmit: (values) => {
+      Object.keys(values).forEach((key) => localStorage.removeItem(key));
+      router.push('/');
+    },
+  });
 
   return (
-    <Flex>
-      <Box className={styles.shopping} w={686}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <Flex maw={1200} w={'100%'} justify={'center'}>
+      <Box w={'100%'}>
+        <form onSubmit={formik.handleSubmit}>
           <Text mb={32}>Shipping</Text>
           <Flex>
-            <Box className={styles.form} mb={32}>
+            <Box mb={32} w={'100%'}>
               <Flex justify="center" align="center" mb={20}>
                 <Box>
                   <TextInput
-                    {...register('firstName', { required: true })}
-                    value={formData.firstName}
-                    onChange={(e) => handleChange('firstName', e.target.value)}
+                    name="firstName"
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     label="First Name *"
                     w="50%"
                     mr={20}
                   />
-                  {errors.firstName && <Text color="red">First Name is required</Text>}
+                  {formik.touched.firstName && formik.errors.firstName && (
+                    <Text color="red">{formik.errors.firstName}</Text>
+                  )}
                 </Box>
                 <Box>
                   <TextInput
-                    {...register('lastName', { required: true })}
-                    value={formData.lastName}
-                    onChange={(e) => handleChange('lastName', e.target.value)}
+                    name="lastName"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     label="Last Name *"
                     w="50%"
                   />
-                  {errors.lastName && <Text color="red">Last Name is required</Text>}
+                  {formik.touched.lastName && formik.errors.lastName && (
+                    <Text color="red">{formik.errors.lastName}</Text>
+                  )}
                 </Box>
               </Flex>
               <Box>
                 <NativeSelect
-                  {...register('city', { required: true })}
-                  value={formData.city}
-                  onChange={(e) => handleChange('city', e.target.value)}
+                  name="city"
+                  value={formik.values.city}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   label="City *"
                   data={['Moscow', 'S-Petersburg', 'Bali', 'Italy']}
                   mb={20}
                   w="100%"
                 />
-                {errors.city && <Text color="red">City is required</Text>}
+                {formik.touched.city && formik.errors.city && (
+                  <Text color="red">{formik.errors.city}</Text>
+                )}
               </Box>
               <Box mb={20}>
                 <TextInput
-                  {...register('country', { required: true })}
-                  value={formData.country}
-                  onChange={(e) => handleChange('country', e.target.value)}
+                  name="country"
+                  value={formik.values.country}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   label="Country / Region *"
                   placeholder="House number and street name"
                   w="100%"
                 />
-                {errors.country && <Text color="red">Country / Region is required</Text>}
+                {formik.touched.country && formik.errors.country && (
+                  <Text color="red">{formik.errors.country}</Text>
+                )}
               </Box>
               <Flex align="center" mb={20}>
                 <Box>
                   <TextInput
-                    {...register('town', { required: true })}
-                    value={formData.town}
-                    onChange={(e) => handleChange('town', e.target.value)}
+                    name="town"
+                    value={formik.values.town}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     label="Town / City *"
                     w="50%"
                     mr={20}
                   />
-                  {errors.town && <Text color="red">Town / City is required</Text>}
+                  {formik.touched.town && formik.errors.town && (
+                    <Text color="red">{formik.errors.town}</Text>
+                  )}
                 </Box>
                 <Box>
                   <TextInput
-                    {...register('postcode', {
-                      required: true,
-                      pattern: /^[0-9]+$/,
-                    })}
-                    value={formData.postcode}
-                    onChange={(e) => handleChange('postcode', e.target.value)}
+                    name="postcode"
+                    value={formik.values.postcode}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     label="Postcode / ZIP *"
                     w="50%"
                   />
-                  {errors.postcode && <Text color="red">Postcode / ZIP must be numeric</Text>}
+                  {formik.touched.postcode && formik.errors.postcode && (
+                    <Text color="red">{formik.errors.postcode}</Text>
+                  )}
                 </Box>
               </Flex>
               <Flex align="center">
                 <Box>
                   <TextInput
-                    {...register('phone', {
-                      required: true,
-                      pattern: /^[7][0-9]{10}$/,
-                    })}
-                    value={formData.phone}
-                    onChange={(e) => handleChange('phone', e.target.value)}
+                    name="phone"
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     label="Phone (optional)"
                     w="50%"
                     mr={20}
+                    placeholder="+7 (000) 000-00-00"
                   />
-                  {errors.phone && (
-                    <Text color="red">Phone must be a valid Russian phone number</Text>
+                  {formik.touched.phone && formik.errors.phone && (
+                    <Text color="red">{formik.errors.phone}</Text>
                   )}
                 </Box>
                 <Box>
                   <TextInput
-                    {...register('email', {
-                      required: true,
-                      pattern:
-                        /^(?=[a-zA-Z0-9])[a-zA-Z0-9._%+-]*@[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/,
-                    })}
-                    value={formData.email}
-                    onChange={(e) => handleChange('email', e.target.value)}
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     label="Email address *"
                     w="50%"
                   />
-                  {errors.email && <Text color="red">Email must be a valid email address</Text>}
+                  {formik.touched.email && formik.errors.email && (
+                    <Text color="red">{formik.errors.email}</Text>
+                  )}
                 </Box>
               </Flex>
               <Box>
-                <>
-                  <NativeSelect
-                    {...register('stockOption', { required: true })}
-                    value={formData.stockOption}
-                    onChange={(e) => handleChange('stockOption', e.target.value)}
-                    label="What would you like us to do if an Item is out of Stock?"
-                    data={['Contact me (With delay)', 'G-mail', 'Mail', 'TG']}
-                    mb={20}
-                    w="100%"
-                  />
-                  {errors.stockOption && <Text color="red">Stock Option is required</Text>}
-                </>
+                <NativeSelect
+                  name="stockOption"
+                  value={formik.values.stockOption}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  label="What would you like us to do if an Item is out of Stock?"
+                  data={['Contact me (With delay)', 'G-mail', 'Mail', 'TG']}
+                  mb={20}
+                  w="100%"
+                />
+                {formik.touched.stockOption && formik.errors.stockOption && (
+                  <Text color="red">{formik.errors.stockOption}</Text>
+                )}
                 <Textarea
-                  {...register('aboutUs')}
-                  value={formData.aboutUs}
-                  onChange={(e) => handleChange('aboutUs', e.target.value)}
+                  name="aboutUs"
+                  value={formik.values.aboutUs}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   label="Where did you hear About Us?"
                   placeholder="Notes about your order, e.g. special notes for delivery."
                   w="100%"
-                />{' '}
+                />
               </Box>
             </Box>
 
-            <FormPay onSubmit={onSubmit} />
+            <FormPay onSubmit={formik.handleSubmit} isValid={formik.isValid} />
           </Flex>
         </form>
       </Box>

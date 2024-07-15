@@ -9,7 +9,8 @@ const safeParseJSON = (jsonString: string | null) => {
   }
 };
 
-const initialState = typeof window !== 'undefined' ? safeParseJSON(localStorage.getItem('cart')) : [];
+const initialState =
+  typeof window !== 'undefined' ? safeParseJSON(localStorage.getItem('cart')) : [];
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -22,17 +23,14 @@ const cartSlice = createSlice({
 
       action: PayloadAction<{
         id: number;
-
         title: string;
-
         price: number;
-
         image: string;
       }>
     ) => {
       const newItem = action.payload;
 
-      const existingItem = state.find((item: { id: number; }) => item.id === newItem.id);
+      const existingItem = state.find((item: { id: number }) => item.id === newItem.id);
 
       if (existingItem) {
         existingItem.quantity += 1;
@@ -44,7 +42,7 @@ const cartSlice = createSlice({
     },
 
     removeFromCart: (state, action) => {
-      const updatedState = state.filter((item: { id: any; }) => item.id !== action.payload);
+      const updatedState = state.filter((item: { id: any }) => item.id !== action.payload);
 
       localStorage.setItem('cart', JSON.stringify(updatedState));
 
@@ -52,7 +50,8 @@ const cartSlice = createSlice({
     },
 
     addQuantity: (state, action: PayloadAction<number>) => {
-      const item = state.find((item: { id: number; }) => item.id === action.payload);
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const item = state.find((item: { id: number }) => item.id === action.payload);
 
       if (item) {
         item.quantity += 1;
@@ -62,7 +61,7 @@ const cartSlice = createSlice({
     },
 
     remQuantity: (state, action: PayloadAction<number>) => {
-      const itemIndex = state.findIndex((item: { id: number; }) => item.id === action.payload);
+      const itemIndex = state.findIndex((item: { id: number }) => item.id === action.payload);
       if (itemIndex !== -1) {
         const item = state[itemIndex];
 
