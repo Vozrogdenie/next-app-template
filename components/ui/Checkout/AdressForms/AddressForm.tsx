@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Flex, Text, NativeSelect, Textarea, TextInput } from '@mantine/core';
 import { useRouter } from 'next/navigation';
+import { useMediaQuery } from '@mantine/hooks';
 import FormPay from '../FormPay/FormPay';
 
 const AddressForm = () => {
   const router = useRouter();
+  const isMobile = useMediaQuery('(max-width: 767px)');
 
   const formik = useFormik({
     initialValues: {
@@ -42,45 +44,63 @@ const AddressForm = () => {
     }),
     onSubmit: (values) => {
       Object.keys(values).forEach((key) => localStorage.removeItem(key));
+      alert('Order successfully!');
       router.push('/');
     },
   });
 
+  useEffect(() => {
+    const savedValues = {};
+    Object.keys(formik.initialValues).forEach((key) => {
+      const savedValue = localStorage.getItem(key);
+      if (savedValue) {
+        savedValues[key] = savedValue;
+      }
+    });
+    formik.setValues((prevValues) => ({ ...prevValues, ...savedValues }));
+  }, []);
+
+  useEffect(() => {
+    Object.keys(formik.values).forEach((key) => {
+      localStorage.setItem(key, formik.values[key]);
+    });
+  }, [formik.values]);
+
   return (
-    <Flex maw={1200} w={'100%'} justify={'center'}>
-      <Box w={'100%'}>
+    <Flex maw={1200} w="100%" justify="center">
+      <Box w="100%">
         <form onSubmit={formik.handleSubmit}>
           <Text mb={32}>Shipping</Text>
-          <Flex>
-            <Box mb={32} w={'100%'}>
+          <Flex direction={isMobile ? 'column' : 'row'} align={isMobile ? 'center' : ''}>
+            <Box mb={32} w="100%">
               <Flex justify="center" align="center" mb={20}>
-                <Box>
+                <Flex direction="column" w="100%">
                   <TextInput
                     name="firstName"
                     value={formik.values.firstName}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     label="First Name *"
-                    w="50%"
+                    w="90%"
                     mr={20}
                   />
                   {formik.touched.firstName && formik.errors.firstName && (
                     <Text color="red">{formik.errors.firstName}</Text>
                   )}
-                </Box>
-                <Box>
+                </Flex>
+                <Flex direction="column" w="100%">
                   <TextInput
                     name="lastName"
                     value={formik.values.lastName}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     label="Last Name *"
-                    w="50%"
+                    w="90%"
                   />
                   {formik.touched.lastName && formik.errors.lastName && (
                     <Text color="red">{formik.errors.lastName}</Text>
                   )}
-                </Box>
+                </Flex>
               </Flex>
               <Box>
                 <NativeSelect
@@ -112,65 +132,65 @@ const AddressForm = () => {
                 )}
               </Box>
               <Flex align="center" mb={20}>
-                <Box>
+                <Flex direction="column" w="100%">
                   <TextInput
                     name="town"
                     value={formik.values.town}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     label="Town / City *"
-                    w="50%"
+                    w="90%"
                     mr={20}
                   />
                   {formik.touched.town && formik.errors.town && (
                     <Text color="red">{formik.errors.town}</Text>
                   )}
-                </Box>
-                <Box>
+                </Flex>
+                <Flex direction="column" w="100%">
                   <TextInput
                     name="postcode"
                     value={formik.values.postcode}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     label="Postcode / ZIP *"
-                    w="50%"
+                    w="90%"
                   />
                   {formik.touched.postcode && formik.errors.postcode && (
                     <Text color="red">{formik.errors.postcode}</Text>
                   )}
-                </Box>
+                </Flex>
               </Flex>
               <Flex align="center">
-                <Box>
+                <Flex direction="column" w="100%">
                   <TextInput
                     name="phone"
                     value={formik.values.phone}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     label="Phone (optional)"
-                    w="50%"
+                    w="90%"
                     mr={20}
                     placeholder="+7 (000) 000-00-00"
                   />
                   {formik.touched.phone && formik.errors.phone && (
                     <Text color="red">{formik.errors.phone}</Text>
                   )}
-                </Box>
-                <Box>
+                </Flex>
+                <Flex direction="column" w="100%">
                   <TextInput
                     name="email"
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     label="Email address *"
-                    w="50%"
+                    w="90%"
                   />
                   {formik.touched.email && formik.errors.email && (
                     <Text color="red">{formik.errors.email}</Text>
                   )}
-                </Box>
+                </Flex>
               </Flex>
-              <Box>
+              <Box mt={20}>
                 <NativeSelect
                   name="stockOption"
                   value={formik.values.stockOption}
