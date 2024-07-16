@@ -29,10 +29,11 @@ const authSlice = createSlice({
       state.auth = action.payload;
       localStorage.setItem('auth', JSON.stringify(state));
     },
+    clearAuth: () => [],
   },
 });
 
-export const { setAuth } = authSlice.actions;
+export const { setAuth, clearAuth } = authSlice.actions;
 
 export const selectAuth = (state: RootState) => state.auth.auth;
 

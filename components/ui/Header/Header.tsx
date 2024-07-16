@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Box, Button, NavLink, Text } from '@mantine/core';
 import Image from 'next/image';
 import cn from 'classnames';
@@ -19,16 +20,22 @@ const Modals = dynamic(() => import('@/components/ui/Modal/Modal'), { ssr: false
 
 export function Header() {
   const cart = useSelector(selectCart);
-  const totalQuantity = cart.reduce(
-    (sum: number, item: { quantity: number }) => sum + item.quantity,
-    0
-  );
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
   const dispatch = useDispatch();
-  const auth = localStorage.getItem('auth');
+  const [auth, setAuth] = useState(null);
   const cartOpen = useSelector(selectModalsCart);
   const loginOpen = useSelector(selectModalsLogin);
 
-  const toggleOpen = (type: 'cart' | 'login') => {
+  useEffect(() => {
+    setAuth(localStorage.getItem('auth'));
+  }, []);
+
+  // Обновляем auth и следим за изменениями
+  useEffect(() => {
+    setAuth(localStorage.getItem('auth'));
+  }, [loginOpen]); // Добавляем loginOpen, чтобы обновлять auth при изменении состояния входа
+
+  const toggleOpen = (type) => {
     if (type === 'cart') {
       dispatch(setCart(!cartOpen));
     } else if (type === 'login') {
@@ -38,6 +45,7 @@ export function Header() {
 
   const removeAuth = () => {
     localStorage.removeItem('auth');
+    setAuth(null);
   };
 
   return (
@@ -51,20 +59,20 @@ export function Header() {
       >
         <Box display="flex">
           {headerMenu.map((i) => (
-            <HeaderMenu menu={i.name} />
+            <HeaderMenu key={i.name} menu={i.name} />
           ))}
         </Box>
         <Image src="/logo.png" width={89} height={70} alt="logo" />
         <Box display="flex">
           {headerMenuLeft.map((i) => (
-            <HeaderMenu menu={i.name} />
+            <HeaderMenu key={i.name} menu={i.name} />
           ))}
           {!auth ? (
             <Button onClick={() => toggleOpen('login')}>
               <Text mr={36}>Login</Text>
             </Button>
           ) : (
-            <Button onClick={() => removeAuth()}>
+            <Button onClick={removeAuth}>
               <Text mr={36}>Выйти из профиля</Text>
             </Button>
           )}
