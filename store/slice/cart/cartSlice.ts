@@ -76,7 +76,6 @@ const cartSlice = createSlice({
     },
     clearCart: () => [],
   },
- 
 });
 
 export const { addToCard, removeFromCart, addQuantity, remQuantity, clearCart } = cartSlice.actions;

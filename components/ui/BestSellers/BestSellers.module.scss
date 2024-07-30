@@ -35,4 +35,14 @@
 
 .title {
   align-items: flex-end;
+  @media (max-width: 768px) {
+   align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.titleText{
+  @media (max-width: 768px) {
+    font-size: 44px !important;
+  }
 }

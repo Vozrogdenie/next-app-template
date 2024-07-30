@@ -1,6 +1,6 @@
 'use client';
 
-import { Text, Box } from '@mantine/core';
+import { Box } from '@mantine/core';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styles from './Welcome.module.scss';
@@ -16,36 +16,27 @@ import { InstagramBlock } from '../../ui/InstagramBlock/InstagramBlock';
 import { Footer } from '../../ui/Footer/Footer';
 import { textForRunString } from '../../constants/textForRunString';
 import { setProducts } from '@/store/slice/products/product';
+import { RunString } from '@/components/ui/RunString/RunString';
 
 export const Welcome = (products: any) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(setProducts(products));
   }, [products]);
+
   return (
     <>
+      {textForRunString.map((i) => <RunString runString={i.name}></RunString>).slice(0, 1)}
+      <Header />
       <Box className={styles.main}>
-        {textForRunString
-          .map((i) => (
-            <Box w="100%" display="flex" bg="blue">
-              <Text fz={10} mr={100} w="100%" display="inline" className={styles.text}>
-                {i.name}
-              </Text>
-            </Box>
-          ))
-          .slice(0, 1)}
-        <Header />
         <Slider />
         <Category />
         <BestSellers />
         <SliderText />
-      </Box>
-      <SlideVideo />
-      <Box className={styles.main}>
+        <SlideVideo />
         <Feedback />
-      </Box>
-      <InstagramBlock />
-      <Box className={styles.main}>
+        <InstagramBlock />
         <Footer />
       </Box>
     </>

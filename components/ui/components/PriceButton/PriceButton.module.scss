@@ -16,5 +16,9 @@
 
     button {
         border: 1px solid #f4f4f4;
+
+        &:hover{
+            background-color: rgb(213 213 213) !important;
+        }
     }
 }

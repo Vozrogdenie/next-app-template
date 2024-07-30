@@ -38,7 +38,7 @@ const FormPay = ({ onSubmit, isValid }: { onSubmit: () => void; isValid: boolean
   const finalPrice = (usePoints ? totalPrice - 11 : totalPrice) - discount;
 
   return (
-    <Box className={styles.formPay} w={420} p={24}>
+    <Box className={styles.formPay}>
       <Box>
         <Flex justify="space-between" pb={16}>
           <Text c="#9D9EA2">Subtotal</Text>

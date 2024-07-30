@@ -4,18 +4,17 @@ import * as Yup from 'yup';
 import { Box, Flex, Text, NativeSelect, Textarea, TextInput } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from '@mantine/hooks';
-import FormPay from '../FormPay/FormPay';
-import Allert from '../../components/PriceButton/Allert/Allert';
-import { clearCart } from '@/store/slice/cart/cartSlice';
 import { useDispatch } from 'react-redux';
+import FormPay from '../FormPay/FormPay';
+import { clearCart } from '@/store/slice/cart/cartSlice';
 
 const AddressForm = () => {
   const router = useRouter();
   const isMobile = useMediaQuery('(max-width: 767px)');
-  const [showAlert, setShowAlert] = useState(false);
+  const [, setShowAlert] = useState(false);
   const dispatch = useDispatch();
 
-  const formatPhoneNumber = (text) => {
+  const formatPhoneNumber = (text: string) => {
     text = text.replace(/\D/g, '');
 
     if (text.length > 0) {
@@ -23,11 +22,11 @@ const AddressForm = () => {
 
       if (['7', '8', '9'].includes(text[0])) {
         if (text[0] === '9') {
-          text = '7' + text;
+          text = `7${text}`;
         }
 
-        let firstSymbols = text[0] === '8' ? '8' : '+7';
-        phone = firstSymbols + ' ';
+        const firstSymbols = text[0] === '8' ? '8' : '+7';
+        phone = `${firstSymbols} `;
 
         if (text.length > 1) {
           phone += `(${text.substring(1, Math.min(text.length, 4))}`;
@@ -42,9 +41,8 @@ const AddressForm = () => {
           phone += `-${text.substring(9, Math.min(text.length, 11))}`;
         }
         return phone;
-      } else {
-        return '+' + text;
       }
+      return `+${text}`;
     }
     return '';
   };
@@ -73,9 +71,9 @@ const AddressForm = () => {
         .required('Postcode / ZIP is required'),
       phone: Yup.string()
         .required('Phone is required')
-        .test('is-valid-phone', 'Phone must be in the format +7 (000) 000-00-00', (value) => {
-          return /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(formatPhoneNumber(value));
-        }),
+        .test('is-valid-phone', 'Phone must be in the format +7 (000) 000-00-00', (value) =>
+          /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(formatPhoneNumber(value))
+        ),
       email: Yup.string().email('Invalid email address').required('Email is required'),
       stockOption: Yup.string(),
       aboutUs: Yup.string(),
@@ -84,7 +82,7 @@ const AddressForm = () => {
       Object.keys(values).forEach((key) => localStorage.removeItem(key));
       setShowAlert(true);
       localStorage.removeItem('cart');
-      dispatch(clearCart()); 
+      dispatch(clearCart());
       router.push('/');
     },
   });
@@ -111,7 +109,7 @@ const AddressForm = () => {
   };
 
   return (
-    <Flex maw={1200} w="100%" justify="center">
+    <Flex maw={1200} w="100%" justify="center" >
       <Box w="100%">
         <form onSubmit={formik.handleSubmit}>
           <Text mb={32}>Shipping</Text>
@@ -175,7 +173,7 @@ const AddressForm = () => {
                   <Text color="red">{formik.errors.country}</Text>
                 )}
               </Box>
-              <Flex align="center" mb={20}>
+              <Flex align="center" mb={20} direction={isMobile ? 'column' : 'row'}>
                 <Flex direction="column" w="100%">
                   <TextInput
                     name="town"
@@ -190,7 +188,7 @@ const AddressForm = () => {
                     <Text color="red">{formik.errors.town}</Text>
                   )}
                 </Flex>
-                <Flex direction="column" w="100%">
+                <Flex direction="column" w="100%" >
                   <TextInput
                     name="postcode"
                     value={formik.values.postcode}

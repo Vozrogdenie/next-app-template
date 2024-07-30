@@ -2,6 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  z-index: 10;
+  top: 40px;
+  transition: top 0.2s ease-in-out;
+  height: 90px;
 
   @media (max-width: 768px) {
     display: none;
@@ -25,6 +30,9 @@
 
 .mobile {
   display: none;
+  position: fixed;
+  top: 40px;
+  z-index: 100;
 
   @media (max-width: 768px) {
     display: flex;
@@ -44,4 +52,10 @@
   :global(.mantine-NavLink-section) {
     display: none;
   }
+}
+
+
+.headerTrans {
+  top: 0;
+  transition: top 0.2s ease-in-out;
 }

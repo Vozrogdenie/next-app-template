@@ -7,4 +7,4 @@ const ReduxProvider = ({ children }: { children: React.ReactNode }) => (
   <Provider store={store}>{children}</Provider>
 );
 
-export default ReduxProvider;
+export default ReduxProvider

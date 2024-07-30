@@ -65,7 +65,7 @@ const Minicart = () => {
             Checkout
           </Button>
         </Box>
-        <Box>
+        <Box mb={44}>
           <Text mb={16}>SECURE PAYMENTS PROVIDED BY</Text>
           <Image src="/payCard.svg" width={260} height={32} alt=""></Image>
         </Box>

@@ -5,8 +5,8 @@ import { theme } from '../theme';
 import ReduxProvider from '@/store/redux-provider';
 
 export const metadata = {
-  title: 'local',
-  description: 'I am using Mantine with Next.js!',
+  title: 'T.E.IPR',
+  description: 'I am using Mantine with Next.js, redux, validation!',
 };
 
 export default function RootLayout({ children }: { children: any }) {

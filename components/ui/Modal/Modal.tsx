@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectModalsLogin, setLogin } from '@/store/slice/modals/modals';
 import { setAuth } from '@/store/slice/auth/auth';
+import { useMediaQuery } from '@mantine/hooks';
 
 const Modals = () => {
   const open = useSelector(selectModalsLogin);
   const dispatch = useDispatch();
   const [isRegister, setIsRegister] = useState(true);
+  const isMobile = useMediaQuery('(max-width: 767px)');
 
   const {
     register,
@@ -17,7 +19,13 @@ const Modals = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
     dispatch(setAuth(data));
     dispatch(setLogin(false));
   };
@@ -40,7 +48,16 @@ const Modals = () => {
       h={627}
       styles={{
         body: { width: 273, padding: 0 },
-        content: { padding: 80, width: 458, overflowX: 'hidden', background: 'white' },
+        content: {
+          padding: isMobile ? 24 : 80,
+          width: 375,
+          overflow: 'hidden',
+          background: 'white',
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'center',
+        },
         header: { width: 273, padding: 0 },
       }}
     >

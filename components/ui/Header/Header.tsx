@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Button, NavLink, Text } from '@mantine/core';
+import { Box, Button, Flex, Text } from '@mantine/core';
 import Image from 'next/image';
 import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,22 +20,34 @@ const Modals = dynamic(() => import('@/components/ui/Modal/Modal'), { ssr: false
 
 export function Header() {
   const cart = useSelector(selectCart);
-  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalQuantity = cart.reduce(
+    (sum: number, item: { quantity: number }) => sum + item.quantity,
+    0
+  );
   const dispatch = useDispatch();
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState<string | null>(null);
   const cartOpen = useSelector(selectModalsCart);
   const loginOpen = useSelector(selectModalsLogin);
+  const [scroll, setScroll] = useState(0);
+
+  const handleScroll = () => {
+    setScroll(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     setAuth(localStorage.getItem('auth'));
   }, []);
 
-  // Обновляем auth и следим за изменениями
   useEffect(() => {
     setAuth(localStorage.getItem('auth'));
-  }, [loginOpen]); // Добавляем loginOpen, чтобы обновлять auth при изменении состояния входа
+  }, [loginOpen]);
 
-  const toggleOpen = (type) => {
+  const toggleOpen = (type: string) => {
     if (type === 'cart') {
       dispatch(setCart(!cartOpen));
     } else if (type === 'login') {
@@ -53,55 +65,54 @@ export function Header() {
       <Box
         bg="rgba(240, 240, 240, 1)"
         w="100%"
-        className={cn(styles.header, 'padding')}
-        maw={1500}
-        m="auto"
+        className={cn(styles.header, 'padding', scroll > 1 ? styles.headerTrans : styles.header)}
       >
         <Box display="flex">
           {headerMenu.map((i) => (
             <HeaderMenu key={i.name} menu={i.name} />
           ))}
         </Box>
-        <Image src="/logo.png" width={89} height={70} alt="logo" />
-        <Box display="flex">
+        <Image src="/logotip.svg" width={89} height={70} alt="logo" />
+        <Flex align="center">
           {headerMenuLeft.map((i) => (
             <HeaderMenu key={i.name} menu={i.name} />
           ))}
           {!auth ? (
-            <Button onClick={() => toggleOpen('login')}>
+            <Button variant="transparent" color="black" onClick={() => toggleOpen('login')}>
               <Text mr={36}>Login</Text>
             </Button>
           ) : (
-            <Button onClick={removeAuth}>
-              <Text mr={36}>Выйти из профиля</Text>
+            <Button variant="transparent" color="black" onClick={removeAuth}>
+              <Text mr={36}>Log out of profile</Text>
             </Button>
           )}
-          <Button onClick={() => toggleOpen('cart')}>Cart ({totalQuantity})</Button>
-        </Box>
+          <Button variant="transparent" color="black" onClick={() => toggleOpen('cart')}>
+            Cart ({totalQuantity})
+          </Button>
+        </Flex>
       </Box>
       <Box
         bg="rgba(240, 240, 240, 1)"
         w="100%"
-        className={cn(styles.mobile, 'padding')}
+        className={cn(styles.mobile, 'padding', scroll > 1 ? styles.headerTrans : styles.header)}
         maw={1500}
         m="auto"
       >
-        <Box maw={100}>
-          <NavLink
-            href="#required-for-focus"
-            label="Menu"
-            w={100}
-            childrenOffset={28}
-            className={styles.menu}
-            h={30}
-          >
-            <NavLink label="Shop" href="#required-for-focus" />
-            <NavLink label="Bundles" href="#required-for-focus" />
-            <NavLink label="Quiz" href="#required-for-focus" />
-          </NavLink>
-        </Box>
-        <Image src="/logo.png" width={89} height={70} alt="logo" />
-        <HeaderMenu menu="Cart" />
+        {!auth ? (
+          <Button variant="transparent" color="black" onClick={() => toggleOpen('login')}>
+            <Text mr={36}>Login</Text>
+          </Button>
+        ) : (
+          <Button variant="transparent" color="black" onClick={removeAuth}>
+            <Text mr={36}>Log out of profile</Text>
+          </Button>
+        )}
+        <Image src="/logotip.svg" width={89} height={70} alt="logo" />
+        <Flex align="center">
+          <Button variant="transparent" color="black" onClick={() => toggleOpen('cart')}>
+            Cart ({totalQuantity})
+          </Button>
+        </Flex>
       </Box>
       {cartOpen && <MiniCart />}
       {loginOpen && <Modals />}

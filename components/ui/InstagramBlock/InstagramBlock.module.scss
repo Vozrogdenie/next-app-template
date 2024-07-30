@@ -12,3 +12,9 @@
     top: calc(50% - (26px + 71px) / 2);
   }
 }
+
+.img {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

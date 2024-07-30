@@ -1,4 +1,3 @@
-// store/slice/products/product.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '@/store/types/product/produtc';
 import { RootState } from '@/store/store';

@@ -1,6 +1,6 @@
-import { Text, Box, Button } from '@mantine/core';
+import { Text, Box, Button, Flex } from '@mantine/core';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './CardBestSellers.module.scss';
 import { selectProducts } from '@/store/slice/products/product';
@@ -13,9 +13,10 @@ export const CardBestSellers: FC = () => {
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
 
-  const isProductInCart = (productId: number) => cart.some((item) => item.id === productId);
+  const isProductInCart = (productId: number) =>
+    cart.some((item: { id: number }) => item.id === productId);
   const getProductQuantity = (productId: number) => {
-    const product = cart.find((item) => item.id === productId);
+    const product = cart.find((item: { id: number }) => item.id === productId);
     return product ? product.quantity : 0;
   };
 
@@ -30,13 +31,13 @@ export const CardBestSellers: FC = () => {
           key={i.id}
           className={styles.card}
           display="flex"
-          w={360}
+          w={350}
           h={550}
           bg="rgba(240, 240, 240, 1)"
           p={20}
         >
           <Box mb={20}>
-            <Box display="flex"  className={styles.text}>
+            <Box display="flex" className={styles.text}>
               <Text fz={22} mb={5}>
                 {i.title.slice(0, 15)}
               </Text>
@@ -50,18 +51,14 @@ export const CardBestSellers: FC = () => {
               </Text>
             </Box>
           </Box>
-          <Image src={i.image} alt={i.title} width={320} height={372} className={styles.image} />
+          <Image src={i.image} alt={i.title} width={310} height={372} className={styles.image} />
 
           {isProductInCart(i.id) ? (
-            <PriceButton product={i} count={getProductQuantity(i.id)} />
+            <Flex justify="center">
+              <PriceButton product={i} count={getProductQuantity(i.id)} />
+            </Flex>
           ) : (
-            <Button
-              bg="rgba(255, 107, 24, 1)"
-              w="100%"
-              m="auto"
-              mt={20}
-              onClick={() => addProduct(i)}
-            >
+            <Button bg="#020D00" w="100%" m="auto" mt={20} onClick={() => addProduct(i)}>
               ADD TO CART
             </Button>
           )}

@@ -1,6 +1,7 @@
 import { Button, Box } from '@mantine/core';
-import styles from './PriceButton.module.scss';
 import { useDispatch } from 'react-redux';
+import { FC } from 'react';
+import styles from './PriceButton.module.scss';
 import { addQuantity, remQuantity, removeFromCart } from '@/store/slice/cart/cartSlice';
 import { IProducts } from '@/store/types/product/produtc';
 
@@ -29,7 +30,7 @@ const PriceButton: FC<PriceButtonProps> = ({ product, count }) => {
       <Button w={36} h={36} color="white" onClick={handleRemove}>
         -
       </Button>
-      <Box w={36} h={36} bg="#F4F4F4" display="flex" >
+      <Box w={36} h={36} bg="#F4F4F4" display="flex">
         {count}
       </Box>
       <Button w={36} h={36} color="white" onClick={handleAdd}>

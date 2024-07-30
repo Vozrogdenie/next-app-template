@@ -16,6 +16,10 @@
 .content {
   flex-direction: column;
   justify-content: center;
+  width: 70%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .feedback {
@@ -28,4 +32,19 @@
     height: 60px;
   }
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.titleText{
+  width: 320px;
+  margin-right: 160px;
+  @media (max-width: 768px) {
+    font-size: 24px !important;
+    line-height: 24px;
+    margin-bottom: 16px;
+    width: 100%;
+    margin-right: 0;
+  }
 }

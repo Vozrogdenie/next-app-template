@@ -1,6 +1,11 @@
 .formPay {
     border-radius: 16px;
     border: 1px solid #f4f4f4;
+    width: 420px;
+    padding: 24px;
+    @media (max-width: 768px) {
+        width:375px;
+      }
 }
 
 .allPrice {
