@@ -14,7 +14,6 @@ import { SlideVideo } from '../../ui/SliderVideo/SliderVideo';
 import { Feedback } from '../../ui/Feedback/Feedback';
 import { InstagramBlock } from '../../ui/InstagramBlock/InstagramBlock';
 import { Footer } from '../../ui/Footer/Footer';
-import { textForRunString } from '../../constants/textForRunString';
 import { setProducts } from '@/store/slice/products/product';
 import { RunString } from '@/components/ui/RunString/RunString';
 
