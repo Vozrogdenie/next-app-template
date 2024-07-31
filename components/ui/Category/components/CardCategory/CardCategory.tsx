@@ -2,7 +2,7 @@ import { Text, Box } from '@mantine/core';
 import Image from 'next/image';
 import { FC } from 'react';
 import styles from './CardCategory.module.scss';
-import { IImages } from '@/components/type/heager/header';
+import { IImages } from '@/store/types/header/header';
 
 type CardProps = {
   card: IImages;
