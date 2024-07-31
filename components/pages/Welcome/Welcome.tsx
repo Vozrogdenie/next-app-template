@@ -27,7 +27,7 @@ export const Welcome = (products: any) => {
 
   return (
     <>
-      {textForRunString.map((i) => <RunString runString={i.name}></RunString>).slice(0, 1)}
+      <RunString></RunString>
       <Header />
       <Box className={styles.main}>
         <Slider />
