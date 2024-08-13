@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import { FC } from 'react';
 import styles from './PriceButton.module.scss';
 import { addQuantity, remQuantity, removeFromCart } from '@/store/slice/cart/cartSlice';
-import { IProducts } from '@/store/types/product/produtc';
+import { ICart } from '@/store/types/cart/cart';
 
 interface PriceButtonProps {
-  product: IProducts;
+  product: ICart;
   count: number;
 }
 

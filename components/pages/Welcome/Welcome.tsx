@@ -16,8 +16,9 @@ import { InstagramBlock } from '../../ui/InstagramBlock/InstagramBlock';
 import { Footer } from '../../ui/Footer/Footer';
 import { setProducts } from '@/store/slice/products/product';
 import { RunString } from '@/components/ui/RunString/RunString';
+import { IProduct } from '@/store/types/product/produtc';
 
-export const Welcome = (products: any) => {
+export const Welcome = (products: IProduct) => {
   const dispatch = useDispatch();
 
   useEffect(() => {

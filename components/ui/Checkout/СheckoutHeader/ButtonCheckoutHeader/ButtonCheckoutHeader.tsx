@@ -3,7 +3,6 @@ import { FC } from 'react';
 
 interface Checkout {
   name: string;
-  img?: any;
 }
 
 const ButtonCheckoutHeader: FC<Checkout> = ({ name }) => (

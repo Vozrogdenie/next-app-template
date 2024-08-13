@@ -7,6 +7,7 @@ import PriceButton from '../components/PriceButton/PriceButton';
 import styles from './MiniCart.module.scss';
 import { selectCart } from '@/store/slice/cart/cartSlice';
 import { selectModalsCart, setCart } from '@/store/slice/modals/modals';
+import { ICart } from '@/store/types/cart/cart';
 
 const Minicart = () => {
   const isMobile = useMediaQuery('(max-width: 767px)');
@@ -34,7 +35,7 @@ const Minicart = () => {
         title="Your cart"
         position={isMobile ? 'bottom' : 'right'}
       >
-        {cart.map((i: { image: any; title: string; quantity: number; price: number }) => (
+        {cart.map((i: ICart) => (
           <Box className={styles.box} mb={20}>
             <Box display="flex">
               <Image width={56} height={56} src={i.image} alt={i.title} />
